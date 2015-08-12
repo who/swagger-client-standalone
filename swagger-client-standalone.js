@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var program = require('commander');
 var browserify = require('browserify');
 var fs = require('fs');
