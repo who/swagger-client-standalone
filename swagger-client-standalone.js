@@ -1,0 +1,38 @@
+var program = require('commander');
+var browserify = require('browserify');
+var fs = require('fs');
+var aliasify = require('aliasify');
+var path = require('path');
+
+program
+  .version('1.0.0')
+  .option('-m, --moduleName [value]', 'Main UMD module name to use. Defaults to SwaggerClientStandalone', 'SwaggerClientStandalone')
+  .option('-o, --outfile <path>', 'Output file for the generated standalone bundle')
+  .option('-s, --swaggerSpecPath <path>', 'Full path of the Swagger spec json file. Defaults to ./swagger.json', './swagger.json')
+  .parse(process.argv);
+
+// Make sure we have a swagger spec file
+fs.exists(program.swaggerSpecPath,function(exists){
+  if (exists == false) {
+    program.outputHelp();
+    process.exit(1);
+  }
+});
+
+// Alias the swagger spec require so that we can pass it in as an option
+var aliasifyConfig = {
+  aliases: {"swagger-spec-file-alias": program.swaggerSpecPath},
+  verbose: false
+}
+
+// Invoke browserify, setting the main entry point and aliasify transforms
+var swaggerClientWrapper = path.resolve(__dirname, './swagger-client-wrapper.js');
+var b = browserify(swaggerClientWrapper, {standalone:program.moduleName});
+b.transform(aliasify, aliasifyConfig);
+
+// Dump the output to file or stdout, depending on options
+if (typeof program.outfile === "undefined") {
+  b.bundle().pipe(process.stdout);
+} else {
+  b.bundle().pipe(fs.createWriteStream(program.outfile));
+}
