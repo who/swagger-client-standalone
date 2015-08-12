@@ -1,6 +1,6 @@
 # swagger-client-standalone
 
-This tool provides a way to generate swagger-js clients for environments where UMD is required. Swagger-js, a swagger spec file, and all dependencies are bundled into one output file.
+This tool provides a way to generate swagger-js clients for environments where UMD js is required. Swagger-js, a swagger spec file, and all dependencies are bundled into one output file.
 
 ```
   Usage: swagger-client-standalone [options]
