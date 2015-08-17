@@ -1,7 +1,7 @@
 {
     "author": "Andrew B <githubwho@gmail.com> (https://github.com/who)",
     "name": "swagger-client-standalone",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "A wrapper for swagger-client that bundles the spec and the client together with browserify",
     "main": "swagger-client-standalone.js",
     "license": "MIT",
@@ -15,5 +15,11 @@
         "commander": "^2.8.1",
         "fs": "0.0.2",
         "swagger-client": "^2.1.2"
+    },
+    "files": [
+      "bin"
+    ],
+    "bin": {
+      "swagger-client-standalone": "bin/swagger-client-standalone"
     }
 }
