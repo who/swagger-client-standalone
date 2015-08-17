@@ -28,7 +28,7 @@ var aliasifyConfig = {
 }
 
 // Invoke browserify, setting the main entry point and aliasify transforms
-var swaggerClientWrapper = path.resolve(__dirname, '../lib/swagger-client-wrapper.js');
+var swaggerClientWrapper = path.resolve(__dirname, './swagger-client-wrapper.js');
 var b = browserify(swaggerClientWrapper, {standalone:program.moduleName});
 b.transform(aliasify, aliasifyConfig);
 
